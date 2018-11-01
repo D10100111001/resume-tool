@@ -1,5 +1,4 @@
 import { ResumeConfig, EducationEntry } from "../models/resume-config";
-import { resolve } from "dns";
 
 type Diff<T, U> = T extends U ? never : T;
 
@@ -10,12 +9,17 @@ const PROP_PATH_DEFAULTS = {
 }
 
 const PROP_PATH_PROCESSOR = {
-	"education[].gpa": (prop) => ResumeProcessor.processObjectToString<EducationEntry["gpa"]>(prop, (gpa) => `${gpa.value}/${gpa.scale}`),
-	"education[].degree": (prop) => ResumeProcessor.processObjectToString<EducationEntry["degree"]>(prop, (degree) => `${degree.type} in ${degree.field}`)
+	"education[].gpa": (prop) => 
+		ResumeProcessor.processObjectToString<EducationEntry["gpa"]>(prop, 
+			(gpa) => `${gpa.value}/${gpa.scale}`),
+	"education[].degree": (prop) => 
+		ResumeProcessor.processObjectToString<EducationEntry["degree"]>(prop, 
+			(degree) => `${degree.type} in ${degree.field}`)
 }
 
 const PROP_TYPE_PROCESSOR: TypeProcessHandler = {
-	Date: (prop: Date) => `${prop.toLocaleString("en-us", { month: "short" })} ${prop.getUTCFullYear()}`
+	Date: (prop: Date) => 
+		`${prop.toLocaleString("en-us", { month: "short" })} ${prop.getUTCFullYear()}`
 };
 
 export class ResumeProcessor {
@@ -26,7 +30,7 @@ export class ResumeProcessor {
 	}
 
 	processAllEntries<TObj>(obj: TObj, path: string = '') {
-		if (typeof obj !== "object") return;
+		if (!ResumeProcessor.isObj(obj)) return;
 		Object.keys(obj).forEach(key => {
 			const currentPath = `${path}${path ? '.' : ''}${key}`;
 			const prop = obj[key];
@@ -49,7 +53,10 @@ export class ResumeProcessor {
 	}
 
 	static processObjectToString<T>(value: any, resolver: (obj: Diff<T, number | string>) => string) {
-		const isObj = typeof value === "object";
-		return isObj ? resolver(value) : String(value);
+		return ResumeProcessor.isObj(value) ? resolver(value) : String(value);
+	}
+
+	static isObj(value: any, isArray: boolean = false) {
+		return typeof value === "object" && (isArray === Array.isArray(value));
 	}
 }
