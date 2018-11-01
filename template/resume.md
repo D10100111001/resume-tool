@@ -3,11 +3,12 @@
 
 ## **Professional Experience**
 {{#each jobs}}
-{{company}} \[{{startDate}} - {{endDate}}\]
+**{{company}}** \[{{startDate}} - {{endDate}}\]
 {{title}}
 {{#each accomplishments}}
 - {{.}}
 {{/each}}
+
 {{/each}}
 
 ## **Tech**
