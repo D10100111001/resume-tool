@@ -1,0 +1,4 @@
+node_modules
+out/
+configuration/*
+!configuration/sample.yaml
