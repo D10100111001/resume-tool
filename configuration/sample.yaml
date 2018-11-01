@@ -4,6 +4,7 @@ state: CA
 country: USA
 phone: "1373311337"
 email: man@dev.com
+website: http://blah.man.dev
 jobs:
   - company: The Dev Co
     title: Senior Software Engineer

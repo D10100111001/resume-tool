@@ -1,5 +1,5 @@
 # **{{name}}**
-**{{city}}, {{state}}** | **{{#phone-format phone}}{{.}}{{/phone-format}}** | **{{email}}**
+**{{city}}, {{state}}** | **{{#phone-format phone}}{{.}}{{/phone-format}}** | **{{email}}** | **{{website}}**
 
 ## **Professional Experience**
 {{#each jobs}}
@@ -16,7 +16,7 @@
 
 ## **Education and Certifications**
 {{#each education}}
-**{{degree}}** - {{institution}}, {{graduationDate}}, GPA: {{gpa}}
+**{{degree}}** - {{institution}}, {{graduationDate}}; GPA: {{gpa}}
 {{/each}}
 {{#each certifications}}
 **{{name}}** - {{acquisitionDate}}
